@@ -39,11 +39,6 @@ jobs:
           echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
           fantomas ./LAB3/*.fs 
     
-      
-        
-      # - name: Run project
-      #   run: dotnet run --project ./LAB3
-
 
       - name: Tests
         run: |
