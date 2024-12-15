@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Interpolation.fs" />
+    <Compile Include="Output.fs" />
+    <Compile Include="Input.fs" />
+    <Compile Include="Evaluation.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+</Project>
