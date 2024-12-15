@@ -42,6 +42,6 @@ jobs:
 
       - name: Tests
         run: |
-            dotnet restore LAB3.Tests/LAB3.Tests.fsproj
+            dotnet restore LAB3.Tests/lab3.Tests.fsproj
             dotnet build ./LAB3.Tests
             dotnet test ./LAB3.Tests
