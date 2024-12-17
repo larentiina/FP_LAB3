@@ -1,5 +1,5 @@
 module Interpolation
-let interpolateLagrangeSeq (points: seq<float * float>) (samplingRate: float) =
+let interpolateLagrange (points: seq<float * float>) (samplingRate: float) =
     let pointsList = points |> Seq.toList
     let n = pointsList.Length
     let xs, ys = pointsList |> List.unzip
@@ -27,7 +27,7 @@ let interpolateLagrangeSeq (points: seq<float * float>) (samplingRate: float) =
 
 
 
-let interpolateLinearSeq (points: seq<float * float>) (samplingRate: float) =
+let interpolateLinear (points: seq<float * float>) (samplingRate: float) =
     if Seq.length points < 2 then
         failwith "Linear interpolation requires at least 2 points"
 
