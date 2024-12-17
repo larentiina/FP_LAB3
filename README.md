@@ -80,7 +80,7 @@ let ``Lagrange interpolation for 4 points returns expected values`` () =
 ```
 ### Пример работы программы
 ```
-\FP\FP3\lab3> dotnet run --alg=linear,lagrange --rate=1
+\FP\FP3\lab3> dotnet run -alg=linear,lagrange -rate=1
 Enter point
 1 1
 Enter point
