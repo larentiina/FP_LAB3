@@ -18,8 +18,8 @@ let evaluateInterpolation (algorithms: string list) (rate: float) (points: seq<f
 
     let algorithmHandlers =
         Map.ofList [
-            "linear", (fun pts -> interpolateLinearSeq pts rate)
-            "lagrange", (fun pts -> interpolateLagrangeSeq pts rate)
+            "linear", (fun pts -> interpolateLinear pts rate)
+            "lagrange", (fun pts -> interpolateLagrange pts rate)
         ]
     
 
