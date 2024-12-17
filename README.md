@@ -7,7 +7,7 @@
 - Интеполяция методом Лагранжа
 
 
-## Реализовация алгоритмов
+## Реализация алгоритмов
 ### Linear interpolation
 ```
 let interpolateLinear (points: seq<float * float>) (samplingRate: float) =
@@ -78,6 +78,7 @@ let ``Lagrange interpolation for 4 points returns expected values`` () =
 
     Assert.True((expected = (result |> Seq.toList)))
 ```
+### Пример работы программы
 
 ## Вывод
 В ходе лабораторной работы были реализованы 2 алгоритма интерполяции в функциональном стиле. Также научилась работать с консольным вводом-выводом и ленивыми вычислениями в f#
