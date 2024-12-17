@@ -7,7 +7,7 @@ open System
 let readPoints (input: TextReader) =
     seq {
         while true do
-            printfn "Enter point"
+            printfn "Введите точку"
             let line: string = input.ReadLine()
 
             if line = null then
@@ -15,5 +15,5 @@ let readPoints (input: TextReader) =
             else
                 match line.Split(separator = [| ' '; '\t' |], options = StringSplitOptions.RemoveEmptyEntries) with
                 | [| x; y |] -> yield (float x, float y)
-                | _ -> printfn "Invalid input format"
+                | _ -> printfn "Неправильный формат данных"
     }
