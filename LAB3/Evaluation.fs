@@ -36,7 +36,7 @@ let evaluateInterpolation (algorithms: string list) (rate: float) (points: seq<f
                         if Seq.length pointsSet >= minPoints then
                             let pointsToProcess = 
                                 if alg = "linear" then 
-                                    takeLast 2 pointsSet // Берем последние 2 точки для "linear"
+                                    takeLast 2 pointsSet 
                                 else 
                                     pointsSet
 
