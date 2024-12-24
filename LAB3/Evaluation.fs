@@ -7,22 +7,7 @@ let maxWindowLength = 4
 let takeLast n sequence =
     sequence |> Seq.skip (max 0 (Seq.length sequence - n)) |> Seq.toList
 
-
-let minPointsAlg = 
-    Map.ofList [
-        "linear", 2
-        "lagrange", 4
-    ]
-
 let evaluateInterpolation (algorithms: string list) (rate: float) (points: seq<float * float>) =
-
-    let algorithmHandlers =
-        Map.ofList [
-            "linear", (fun pts -> interpolateLinear pts rate)
-            "lagrange", (fun pts -> interpolateLagrange pts rate)
-        ]
-    
-
     seq {
         let accumulatedPoints =
             points
@@ -31,13 +16,13 @@ let evaluateInterpolation (algorithms: string list) (rate: float) (points: seq<f
 
         for pointsSet in accumulatedPoints do
             for alg in algorithms do
-                match algorithmHandlers.TryFind alg with
-                | Some handler ->
-                    match minPointsAlg.TryFind alg with
-                    | Some minPoints ->
-                        if Seq.length pointsSet >= minPoints then
-                            yield (alg, handler pointsSet)
-                    | None -> ()
-                | None -> ()
-    }
+                match alg with
+                | "linear" when List.length pointsSet >= 2 ->
+                    let linearPoints = takeLast 2 pointsSet
+                    yield ("linear", interpolateLinearSeq linearPoints rate)
 
+                | "lagrange" when List.length pointsSet >= 4 ->
+                    yield ("lagrange", interpolateLagrangeSeq pointsSet rate)
+
+                | _ -> ()
+    }
