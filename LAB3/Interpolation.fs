@@ -5,7 +5,7 @@ let interpolateLagrange (points: seq<float * float>) (samplingRate: float) =
     let xs, ys = pointsList |> List.unzip
     let step = samplingRate
     let minX = List.head xs
-    let maxX = List.last xs  + step*(if ((xs[n - 1] - minX) % step = 0) then 0.0 else step) + 1e-9
+    let maxX = List.last xs  + step*(if ((xs[n - 1] - minX) % step = 0) then 0.0 else 1.0) 
 
     seq {
         for x in seq{minX .. step .. maxX} do
