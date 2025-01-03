@@ -28,8 +28,6 @@ let interpolateLagrange (points: seq<float * float>) (samplingRate: float) =
 
 
 let interpolateLinear (points: seq<float * float>) (samplingRate: float) =
-    if Seq.length points < 2 then
-        failwith "Linear interpolation requires at least 2 points"
 
     seq {
         for (x1, y1), (x2, y2) in Seq.pairwise points do
