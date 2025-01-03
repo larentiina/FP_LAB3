@@ -38,7 +38,7 @@ let evaluateInterpolation (algorithms: string list) (rate: float) (points: seq<f
                                 if alg = "linear" then 
                                     takeLast 2 pointsSet 
                                 else 
-                                    pointsSet
+                                    takeLast 4 pointsSet 
 
                             yield (alg, handler pointsToProcess)
                     | None -> ()

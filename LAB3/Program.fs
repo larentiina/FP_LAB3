@@ -15,9 +15,9 @@ let parseArgs (args: string array) =
     |> Array.fold
         (fun (algorithms, samplingRate) arg ->
             match arg.Split('=') with
-            | [| "-alg"; algs |] ->
+            | [| "--algs"; algs |] ->
                 (algs.Split(',') |> Array.toList, samplingRate)
-            | [| "-rate"; rate |] ->
+            | [| "--rate"; rate |] ->
                 (algorithms, float rate)
             | _ -> (algorithms, samplingRate))
         (defaultAlgorithms, defaultSamplingRate)

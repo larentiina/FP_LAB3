@@ -7,7 +7,6 @@ open System
 let readPoints (input: TextReader) =
     seq {
         while true do
-            printfn "Введите точку"
             let line: string = input.ReadLine()
 
             if line = null then
