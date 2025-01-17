@@ -24,7 +24,7 @@ let ``Linear interpolation should include the last point in the sequence`` () =
 
     let result = interpolateLinear [p1; p2] samplingRate |> Seq.toList
 
-    Assert.True(fst p2 <= fst (List.last result))
+    Assert.True(fst p2 = fst (List.last result))
 
 
 [<Fact>]
@@ -51,4 +51,4 @@ let ``Lagrange interpolation should include the last point in the sequence`` () 
     let points = [ (1.0, 2.0); (3.0, 3.0); (4.0, 5.0); (6.1, 7.0) ]
     let result = interpolateLagrange points 0.5 |> Seq.toList
 
-    Assert.True(fst (List.last points) <= fst (List.last result))
+    Assert.True(fst (List.last points) = fst (List.last result))

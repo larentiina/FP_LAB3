@@ -4,8 +4,7 @@ open Interpolation
 
 let maxWindowLength = 4
 
-let takeLast n sequence =
-    sequence |> Seq.skip (max 0 (Seq.length sequence - n)) |> Seq.toList
+
 
 let minPointsAlg = 
     Map.ofList [
@@ -22,10 +21,10 @@ let evaluateInterpolation (algorithms: string list) (rate: float) (points: seq<f
         ]
     
     seq {
-        let accumulatedPoints =
-            points
-            |> Seq.scan (fun acc point -> 
-                if List.length acc >= maxWindowLength then acc.Tail @ [point] else acc @ [point]) []
+        let accumulatedPoints = 
+                points
+                |> Seq.scan (fun acc point -> point :: acc) []
+                |> Seq.map List.rev
 
         for pointsSet in accumulatedPoints do
             for alg in algorithms do
@@ -36,9 +35,9 @@ let evaluateInterpolation (algorithms: string list) (rate: float) (points: seq<f
                         if Seq.length pointsSet >= minPoints then
                             let pointsToProcess = 
                                 if alg = "linear" then 
-                                    takeLast 2 pointsSet 
+                                    pointsSet 
                                 else 
-                                    takeLast 4 pointsSet 
+                                    pointsSet 
 
                             yield (alg, handler pointsToProcess)
                     | None -> ()
