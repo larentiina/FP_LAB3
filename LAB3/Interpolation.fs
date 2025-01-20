@@ -33,37 +33,40 @@ let interpolateLagrange (points: seq<float * float>) (samplingRate: float) =
 
                 yield (x, y)
 
-        let lastPoint = List.last pointsList
-        if not (Seq.exists (fun x -> x = fst  lastPoint) (seq { minX .. step .. maxX })) then
-            yield lastPoint
+
     }
 
 
 
 
-
-
-
-
 let interpolateLinear (points: seq<float * float>) (samplingRate: float) =
-    let newpoints = takeLast 2 points
+    let getRemainder (x: float) = x % samplingRate
+
+    let newpoints = takeLast 2 points 
+    let rate = fst (Seq.head points ) % samplingRate
+
     seq {
         for (x1, y1), (x2, y2) in Seq.pairwise newpoints do
             let rec generatePoints x =
                 seq {
-                    if x < x2 then
-                        let t = (x - x1) / (x2 - x1)
+                    let currentRemainder = getRemainder x
+
+                    let adjustedX =
+                        if currentRemainder <> rate then
+                            x - currentRemainder + rate
+                        else
+                            x
+
+                    if adjustedX <= x2 then
+                        let t = (adjustedX - x1) / (x2 - x1)
                         let y = y1 + t * (y2 - y1)
 
-                        match Seq.tryHead points with
-                        | Some (fx, fy) when (x1, y1) <> (fx, fy) && x <= x1 -> ()
-                        | _ -> yield (x, y)
+                        if fst newpoints.[0] < adjustedX then 
+                            yield (adjustedX, y)
 
-                        yield! generatePoints (x + samplingRate)
-
+                        yield! generatePoints (adjustedX + samplingRate)
                 }
-            yield! generatePoints x1
 
-            yield (x2, y2)
+            yield! generatePoints x1
     }
 
