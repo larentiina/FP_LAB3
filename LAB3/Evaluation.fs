@@ -33,13 +33,7 @@ let evaluateInterpolation (algorithms: string list) (rate: float) (points: seq<f
                     match minPointsAlg.TryFind alg with
                     | Some minPoints ->
                         if Seq.length pointsSet >= minPoints then
-                            let pointsToProcess = 
-                                if alg = "linear" then 
-                                    pointsSet 
-                                else 
-                                    pointsSet 
-
-                            yield (alg, handler pointsToProcess)
+                            yield (alg, handler pointsSet)
                     | None -> ()
                 | None -> ()
     }
