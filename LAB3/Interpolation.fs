@@ -61,7 +61,7 @@ let interpolateLinear (points: seq<float * float>) (samplingRate: float) =
                         let t = (adjustedX - x1) / (x2 - x1)
                         let y = y1 + t * (y2 - y1)
 
-                        if fst newpoints.[0] < adjustedX then 
+                        if fst newpoints.[0] < adjustedX || fst newpoints.[0] = fst (Seq.head points ) then 
                             yield (adjustedX, y)
 
                         yield! generatePoints (adjustedX + samplingRate)
