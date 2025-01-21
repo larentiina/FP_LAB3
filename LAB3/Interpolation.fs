@@ -5,36 +5,39 @@ let takeLast n sequence =
 
 let interpolateLagrange (points: seq<float * float>) (samplingRate: float) =
     let pointsList = takeLast 4 points |> Seq.toList
+
     let n = pointsList.Length
-
-    let x3 = if n >= 3 then Some (List.item 2 pointsList) else None
-
     let xs, ys = pointsList |> List.unzip
     let step = samplingRate
     let minX = List.head xs
-    let maxX = List.last xs 
+    let maxX = List.last xs
+    let initialRemainder = fst (Seq.head points )% step
+    let correctedMinX = 
+        if minX % step <> initialRemainder then
+            minX - (minX % step) + initialRemainder
+        else
+            minX
 
     seq {
-        for x in seq {minX .. step .. maxX} do
-            match (points |> Seq.tryHead, pointsList |> List.tryHead, x3) with
-            | (Some (x1, _), Some (x2, _), Some (x3, _)) when x1 <> x2 && x <= x3 -> ()
-            | _ -> 
+        for x in seq { correctedMinX .. step .. maxX } do
+            if x <= maxX then
                 let y =
                     [ for i in 0 .. n - 1 do
                            let xi, yi = xs.[i], ys.[i]
 
                            let li =
                                [ for j in 0 .. n - 1 do
-                                      if j <> i then (x - xs.[j]) / (xi - xs.[j]) else 1.0 ]
+                                      if j <> i then (x - xs.[j]) / (xi - xs.[j])
+                                      else 1.0 ]
                                |> List.fold (*) 1.0
 
                            yield yi * li ]
                     |> List.sum
 
-                yield (x, y)
-
-
+                if x> fst pointsList.[2] || fst pointsList.[0] = (fst (Seq.head points))then
+                    yield (x, y)
     }
+
 
 
 
